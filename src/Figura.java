@@ -6,9 +6,12 @@ public class Figura {
 
     }
 
-    public Figura(String name, int circuit){
+    public Figura(String name, int[] tabOfSides){
         this.name = name;
-        this.circuit = circuit;
+        this.circuit = 0;
+        for (int i = 0; i < tabOfSides.length; i++){
+            this.circuit += tabOfSides[i];
+        }
     }
 
     public String getName() {
@@ -29,37 +32,24 @@ public class Figura {
         return numberOfSides;
     }
 
-    public static boolean isTrojkat(int[] tabOfSides){
+    public static boolean isFigura(int[] tabOfSides){ //TODO sprawdzic trojkat 5 55 5
         int longestSide = 0;
-        for (int i = 0; i < 3; i++){
-            if (longestSide < tabOfSides[i]){
+        int suma = 0;
+        for (int i = 0; i < numberOfSides(tabOfSides); i++){
+            if (tabOfSides[longestSide] < tabOfSides[i]){
                 longestSide = i;
             }
         }
-        if (longestSide == 0){
-            if (tabOfSides[longestSide] < tabOfSides[1] + tabOfSides[2]){
-                return true;
+        for (int i = 0; i < numberOfSides(tabOfSides); i++){
+            if (i != longestSide){
+                suma += tabOfSides[i];
             }
-        }else if (longestSide == 1){
-            if (tabOfSides[longestSide] < tabOfSides[0] + tabOfSides[2]){
-                return true;
-            }
-        }if (longestSide == 2){
-            if (tabOfSides[longestSide] < tabOfSides[1] + tabOfSides[0]){
-                return true;
-            }
+        }
+        if (tabOfSides[longestSide] < suma){
+            return true;
         }
         GUI.informsNotFigure(tabOfSides);
         return false;
-    }
-
-    public static boolean isTrojkatRownoboczny(int[] tabOfSides){
-        for (int i = 1; i < 3; i++){
-            if(tabOfSides[0] != tabOfSides [i]){
-                return false;
-            }
-        }
-        return true;
     }
 
     public static boolean isTrojkatRownoramienny(int[] tabOfSides){
@@ -77,9 +67,25 @@ public class Figura {
     }
 
     public static boolean isTrojkatRoznoboczny(int[] tabOfSides){
-        if(!isTrojkatRownoboczny(tabOfSides) && !isTrojkatRownoramienny(tabOfSides)){
+        if(!isForemny(tabOfSides) && !isTrojkatRownoramienny(tabOfSides)){
             return true;
         }
         return false;
+    }
+
+    public static boolean isProstokat(int[] tabOfSides){
+        if (tabOfSides[0] == tabOfSides[2] && tabOfSides[1] == tabOfSides[3]) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isForemny(int[] tabOfSides){
+        for (int i = 1; i < numberOfSides(tabOfSides); i++){
+            if(tabOfSides[0] != tabOfSides [i]){
+                return false;
+            }
+        }
+        return true;
     }
 }

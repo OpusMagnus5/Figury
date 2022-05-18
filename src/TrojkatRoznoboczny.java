@@ -4,12 +4,12 @@ public class TrojkatRoznoboczny extends Figura{
     int c;
     double field;
 
-    public TrojkatRoznoboczny(String name, int circuit, int[] tabOfSides){
-        super(name, circuit);
+    public TrojkatRoznoboczny(String name, int[] tabOfSides){
+        super(name, tabOfSides);
         this.a = tabOfSides[0];
         this.b = tabOfSides[1];
         this.c = tabOfSides[2];
-        double p = circuit / 2; // połowa obwodu
+        double p = getCircuit() / 2; // połowa obwodu
         this.field = Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 

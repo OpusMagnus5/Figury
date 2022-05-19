@@ -1,6 +1,6 @@
 public class Figura {
     private String name;
-    private int circuit;
+    private double circuit;
 
     public Figura(){
 
@@ -9,6 +9,9 @@ public class Figura {
     public Figura(String name, int[] tabOfSides){
         this.name = name;
         this.circuit = 0;
+        if (Figura.numberOfSides(tabOfSides) == 1){
+            this.circuit = 2 * tabOfSides[0] * Math.PI;
+        }
         for (int i = 0; i < tabOfSides.length; i++){
             this.circuit += tabOfSides[i];
         }
@@ -18,7 +21,7 @@ public class Figura {
         return name;
     }
 
-    public int getCircuit() {
+    public double getCircuit() {
         return circuit;
     }
 
@@ -29,6 +32,7 @@ public class Figura {
                 numberOfSides++;
             }
         }
+
         return numberOfSides;
     }
 
@@ -66,13 +70,6 @@ public class Figura {
         return false;
     }
 
-    public static boolean isTrojkatRoznoboczny(int[] tabOfSides){
-        if(!isForemny(tabOfSides) && !isTrojkatRownoramienny(tabOfSides)){
-            return true;
-        }
-        return false;
-    }
-
     public static boolean isProstokat(int[] tabOfSides){
         if (tabOfSides[0] == tabOfSides[2] && tabOfSides[1] == tabOfSides[3]) {
             return true;
@@ -87,5 +84,15 @@ public class Figura {
             }
         }
         return true;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.name)
+                .append(" Obwód: ")
+                .append(String.format("%.2f", this.circuit))
+                .append(" ");
+
+        return sb.toString();
     }
 }

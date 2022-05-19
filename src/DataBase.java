@@ -1,9 +1,16 @@
 public class DataBase {
-    private final Figura[] figury = new Figura[5];
+    private final Figura[] figury = new Figura[Main.NUMBER_OF_FIGURS];
 
 
     public DataBase(int[][] tabOfSides){
         for (int i = 0; i < tabOfSides.length; i++){
+            if (Figura.numberOfSides(tabOfSides[i]) == 1){
+                this.figury[i] = new Kolo("Koło", tabOfSides[i]);
+                continue;
+            }
+            if (Figura.numberOfSides(tabOfSides[i]) == 2){
+                GUI.informsNotFigure(tabOfSides[i]);
+            }
             if (Figura.numberOfSides(tabOfSides[i]) == 3 && Figura.isFigura(tabOfSides[i])){
                     if (Figura.isForemny(tabOfSides[i])){
                         this.figury[i] = new TrojkatRownoboczny("Trójkąt równoboczny", tabOfSides[i]);
@@ -14,8 +21,8 @@ public class DataBase {
                     }
                 continue;
             }
-            if (Figura.numberOfSides(tabOfSides[i]) == 4){
-                if (Figura.isFigura(tabOfSides[i]) && Figura.isForemny(tabOfSides[i])){
+            if (Figura.numberOfSides(tabOfSides[i]) == 4  && Figura.isFigura(tabOfSides[i])){
+                if (Figura.isForemny(tabOfSides[i])){
                         this.figury[i] = new Kwadrat("Kwadrat", tabOfSides[i]);
                     }else if (Figura.isProstokat(tabOfSides[i])){
                         this.figury[i] = new Prostokat("Prostokąt", tabOfSides[i]);
@@ -28,7 +35,7 @@ public class DataBase {
                     if (Figura.isForemny(tabOfSides[i])){
                         this.figury[i] = new PieciokatForemny("Pieciokąt Foremny", tabOfSides[i]);
                     }else{
-                        this.figury[i] = new Prostokat("Prostokąt", tabOfSides[i]);
+                        this.figury[i] = new Pieciokat("Pięciokąt", tabOfSides[i]);
                     }
                 continue;
             }
@@ -41,6 +48,10 @@ public class DataBase {
                 continue;
             }
         }
+    }
+
+    public Figura[] getFigury(){
+        return figury;
     }
 
     private int setCircuit(int[] tabOfSides){

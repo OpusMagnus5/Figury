@@ -1,8 +1,8 @@
 public class TrojkatRoznoboczny extends Figura{
-    int a;
-    int b;
-    int c;
-    double field;
+    private int a;
+    private int b;
+    private int c;
+    private double field;
 
     public TrojkatRoznoboczny(String name, int[] tabOfSides){
         super(name, tabOfSides);
@@ -27,5 +27,20 @@ public class TrojkatRoznoboczny extends Figura{
 
     public double getField() {
         return field;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString())
+                .append(" a: ")
+                .append(this.a)
+                .append(" b: ")
+                .append(this.b)
+                .append(" c: ")
+                .append(this.c)
+                .append(" Pole: ")
+                .append(String.format("%.2f", this.field));
+
+        return sb.toString();
     }
 }
